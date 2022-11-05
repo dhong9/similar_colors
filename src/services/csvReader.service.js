@@ -1,8 +1,4 @@
-export const fetchCsv = fileName =>
+export const fetchCsv = (fileName, success) =>
     fetch(fileName)
-        .then(response =>
-            response.body.getReader().read()
-                .then(result =>
-                    new TextDecoder('utf-8').decode(result.value)
-                )    
-        );
+        .then(response => response.text())
+        .then(success);
