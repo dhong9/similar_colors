@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Plot from 'react-plotly.js';
 
-// Data
-import data from "../../data/points.csv";
-
 // Services
 import { fetchCsv } from "../../services/csvReader.service";
 
-export default function ScatterPlot() {
+export default function ScatterPlot(props) {
 
     const [blues, setBlues] = useState([]);
     const [oranges, setOranges] = useState([]);
@@ -15,7 +12,7 @@ export default function ScatterPlot() {
     useEffect(() => {
         const blues = [], 
               oranges = [];
-        fetchCsv(data, res => {
+        fetchCsv(props.src, res => {
             res.split('\n').forEach(row => {
                 const[x, y, color] = row.replace(/\s/g, '').split(',');
                 if (color === "Blue")
@@ -26,7 +23,7 @@ export default function ScatterPlot() {
             setBlues(blues);
             setOranges(oranges);
         });
-    }, [])
+    }, [props.src])
 
     return (
         <Plot

@@ -12,8 +12,12 @@ export default function KNN() {
 
     return (
         <div>
-            <Table />
-            <ScatterPlot />
+            <Table 
+                src={data}
+            />
+            <ScatterPlot
+                src={data}
+            />
             <Addpoint />
         </div>
     );

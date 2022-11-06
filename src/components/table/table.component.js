@@ -1,21 +1,18 @@
 import React, { useState, useEffect } from "react";
 
-// Data
-import data from "../../data/points.csv";
-
 // Services
 import { fetchCsv } from "../../services/csvReader.service";
 
 // CSS
 import "./table.component.css"
 
-export default function Table() {
+export default function Table(props) {
 
   const [csv, setCsv] = useState([])
 
   useEffect(() => {
-    fetchCsv(data, res => setCsv(res.split('\n')))
-  }, [])
+    fetchCsv(props.src, res => setCsv(res.split('\n')))
+  }, [props.src])
 
   return (
     csv[0] &&
