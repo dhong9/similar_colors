@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function Addpoint() {
+export default function Addpoint(props) {
 
     const [inputs, setInputs] = useState({});
 
@@ -12,9 +12,7 @@ export default function Addpoint() {
     
     const handleSubmit = event => {
         event.preventDefault();
-
-        //! TODO Show input points on plot
-        console.log(inputs);
+        props.onSubmit(inputs);
     };
 
     return (
