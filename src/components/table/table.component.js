@@ -11,11 +11,19 @@ export default function Table() {
   }, [])
 
   return (
+    csv[0] &&
     <table>
+      <thead>
+        <tr key="0">
+        {
+          csv[0].split(',').map((v, i) => <th key={i}>{v}</th>)
+        }
+        </tr>
+      </thead>
       <tbody>
       {
-        csv.map((row, i) =>
-          <tr key={i}>
+        csv.slice(1).map((row, i) =>
+          <tr key={i + 1}>
             {
               row.split(',').map((v, j) => <td key={j}>{v}</td>)
             }
