@@ -33,6 +33,14 @@ export default function Addpoint(props) {
                     onChange={handleChange}
                 />
             </label>
+            <label>k
+                <input
+                    type="number"
+                    name="k"
+                    value={inputs.k ?? ""}
+                    onChange={handleChange}
+                />
+            </label>
             <input type="submit" />
         </form>
     );
