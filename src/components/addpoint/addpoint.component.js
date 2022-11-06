@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+// CSS
+import "./addpoint.component.css";
+
 export default function Addpoint(props) {
 
     const [inputs, setInputs] = useState({});
@@ -19,6 +22,7 @@ export default function Addpoint(props) {
         <form onSubmit={handleSubmit}>
             <label>x
                 <input
+                    className="input"
                     type="number"
                     name="x"
                     value={inputs.x ?? ""}
@@ -27,6 +31,7 @@ export default function Addpoint(props) {
             </label>
             <label>y
                 <input
+                    className="input"
                     type="number"
                     name="y"
                     value={inputs.y ?? ""}
@@ -35,13 +40,14 @@ export default function Addpoint(props) {
             </label>
             <label>k
                 <input
+                    className="input"
                     type="number"
                     name="k"
                     value={inputs.k ?? ""}
                     onChange={handleChange}
                 />
             </label>
-            <input type="submit" />
+            <input className="button" type="submit" />
         </form>
     );
 
