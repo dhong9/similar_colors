@@ -6,6 +6,8 @@ import { fetchCsv } from "../../services/csvReader.service";
 
 export default function ScatterPlot(props) {
 
+    const { x, y } = props.inputs;
+
     const [blues, setBlues] = useState([]);
     const [oranges, setOranges] = useState([]);
 
@@ -41,6 +43,13 @@ export default function ScatterPlot(props) {
                 type: 'scatter',
                 mode: 'markers',
                 marker: {color: 'orange'},
+                },
+                x !== "" && y !== "" && {
+                    x: [x],
+                    y: [y],
+                    type: 'scatter',
+                    mode: 'markers',
+                    marker: {color: 'green'}
                 }
             ]}
             layout={{width: 500, height: 500, title: 'A Fancy Plot'}}
