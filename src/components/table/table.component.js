@@ -13,10 +13,10 @@ export default function Table() {
   return (
     <table>
       {
-        csv.map(row =>
-          <tr>
+        csv.map((row, i) =>
+          <tr key={i}>
             {
-              row.split(',').map(v => <td>{v}</td>)
+              row.split(',').map((v, j) => <td key={j}>{v}</td>)
             }
           </tr>
         )
