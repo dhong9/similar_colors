@@ -11,8 +11,20 @@ import data from "../../data/points.csv";
 export default function KNN() {
 
     const [inputs, setInputs] = useState({});
+    const [dataPoints, setDataPoints] = useState([]);
+    const [knnPoints, setKnnPoints] = useState([]);
 
-    const onSubmit = inputs => setInputs(inputs);
+    const classifyKnn = (points, k) => {
+        //! TODO Implement kNN logic
+        setKnnPoints(points.slice(0, k));
+    };
+
+    const loadData = dataPoints => setDataPoints(dataPoints);
+
+    const onSubmit = inputs => {
+        setInputs(inputs);
+        classifyKnn(dataPoints, 3);
+    };
 
     return (
         <div>
@@ -22,6 +34,9 @@ export default function KNN() {
             <ScatterPlot
                 src={data}
                 inputs={inputs}
+                knnPoints={knnPoints}
+                onLoad={loadData}
+                onSubmit={onSubmit}
             />
             <Addpoint 
                 onSubmit={onSubmit}

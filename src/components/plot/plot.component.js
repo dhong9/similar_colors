@@ -13,7 +13,8 @@ export default function ScatterPlot(props) {
 
     useEffect(() => {
         const blues = [], 
-              oranges = [];
+              oranges = [],
+              dataPoints = [];
         fetchCsv(props.src, res => {
             res.split('\n').forEach(row => {
                 const[x, y, color] = row.replace(/\s/g, '').split(',');
@@ -21,11 +22,13 @@ export default function ScatterPlot(props) {
                     blues.push([+x, +y]);
                 else if (color === "Orange")
                     oranges.push([+x, +y]);
+                dataPoints.push([+x, +y]);
             });
             setBlues(blues);
             setOranges(oranges);
+            props.onLoad(dataPoints);
         });
-    }, [props.src])
+    }, [props])
 
     return (
         <Plot
@@ -45,8 +48,8 @@ export default function ScatterPlot(props) {
                 marker: {color: 'orange'},
                 },
                 x !== "" && y !== "" && {
-                    x: [x],
-                    y: [y],
+                    x: [x, ...props.knnPoints.map(v => v[0])],
+                    y: [y, ...props.knnPoints.map(v => v[1])],
                     type: 'scatter',
                     mode: 'markers',
                     marker: {color: 'green'}
