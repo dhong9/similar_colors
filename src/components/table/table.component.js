@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
+
+// Data
 import data from "../../data/points.csv";
+
+// Services
 import { fetchCsv } from "../../services/csvReader.service";
+
+// CSS
+import "./table.component.css"
 
 export default function Table() {
 
