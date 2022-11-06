@@ -12,6 +12,7 @@ export default function Table() {
 
   return (
     <table>
+      <tbody>
       {
         csv.map((row, i) =>
           <tr key={i}>
@@ -21,6 +22,7 @@ export default function Table() {
           </tr>
         )
       }
+      </tbody>
     </table>
   )
 }
