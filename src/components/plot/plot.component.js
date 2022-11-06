@@ -9,25 +9,44 @@ import { fetchCsv } from "../../services/csvReader.service";
 
 export default function ScatterPlot() {
 
-    const [csv, setCsv] = useState([])
+    const [blues, setBlues] = useState([]);
+    const [oranges, setOranges] = useState([]);
 
     useEffect(() => {
-        fetchCsv(data, res => setCsv(res.split('\n')))
+        const blues = [], 
+              oranges = [];
+        fetchCsv(data, res => {
+            res.split('\n').forEach(row => {
+                const[x, y, color] = row.replace(/\s/g, '').split(',');
+                if (color === "Blue")
+                    blues.push([+x, +y]);
+                else if (color === "Orange")
+                    oranges.push([+x, +y]);
+            });
+            setBlues(blues);
+            setOranges(oranges);
+        });
     }, [])
 
     return (
         <Plot
             data={[
                 {
-                x: [1, 2, 3],
-                y: [2, 6, 3],
+                x: blues.map(v => v[0]),
+                y: blues.map(v => v[1]),
                 type: 'scatter',
-                mode: 'lines+markers',
-                marker: {color: 'red'},
+                mode: 'markers',
+                marker: {color: 'blue'},
                 },
-                {type: 'bar', x: [1, 2, 3], y: [2, 5, 3]},
+                {
+                x: oranges.map(v => v[0]),
+                y: oranges.map(v => v[1]),
+                type: 'scatter',
+                mode: 'markers',
+                marker: {color: 'orange'},
+                }
             ]}
-            layout={{width: 320, height: 240, title: 'A Fancy Plot'}}
+            layout={{width: 500, height: 500, title: 'A Fancy Plot'}}
         />
     )
 }
