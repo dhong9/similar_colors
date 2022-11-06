@@ -8,12 +8,19 @@ export default function Table() {
 
   useEffect(() => {
     fetchCsv(data, res => setCsv(res.split('\n')))
-    console.log(csv)
   }, [])
 
   return (
-    <div>
-      { csv }
-    </div>
+    <table>
+      {
+        csv.map(row =>
+          <tr>
+            {
+              row.split(',').map(v => <td>{v}</td>)
+            }
+          </tr>
+        )
+      }
+    </table>
   )
 }
