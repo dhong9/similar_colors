@@ -8,6 +8,13 @@ import data from "../../data/points.csv";
 import { fetchCsv } from "../../services/csvReader.service";
 
 export default function ScatterPlot() {
+
+    const [csv, setCsv] = useState([])
+
+    useEffect(() => {
+        fetchCsv(data, res => setCsv(res.split('\n')))
+    }, [])
+
     return (
         <Plot
             data={[
