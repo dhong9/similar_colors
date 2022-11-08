@@ -16,20 +16,21 @@ export default function ScatterPlot(props) {
             const colorPoints = {}
             res.split('\n').forEach((row, i) => {
                 if (i) {
-                    const[x, y, rawColor] = row.replace(/\s/g, '').split(',');
+                    const array = row.replace(/\s/g, '').split(',');
+                    const nums = array.slice(0, -1).map(v => +v);
+                    const rawColor = array.at(-1);
                     const color = rawColor.toLowerCase(); // Common color names need to be lower cased
                     if (color in colorPoints) {
                         // Add point to existing color
-                        colorPoints[color].push([x, y]);
+                        colorPoints[color].push(nums);
                     }
                     else {
                         // Add new color to set
-                        colorPoints[color] = [[x, y]];
+                        colorPoints[color] = [nums];
                     }
                 }
             });
             setPoints(colorPoints);
-            console.log(colorPoints)
         });
     }, [props]);
 
