@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 // Components
 import Addpoint from "../addpoint/addpoint.component";
-import Filepicker from "../filepicker/filepicker.component";
 import ScatterPlot from "../plot/plot.component";
 import Table from "../table/table.component";
 
@@ -29,7 +28,6 @@ export default function KNN() {
 
     return (
         <div>
-            <Filepicker />
             <Table 
                 src={data}
             />

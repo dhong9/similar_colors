@@ -8,53 +8,49 @@ export default function ScatterPlot(props) {
 
     const { x, y } = props.inputs;
 
-    const [blues, setBlues] = useState([]);
-    const [oranges, setOranges] = useState([]);
+    // Map each color to a set of points
+    const [points, setPoints] = useState({});
 
     useEffect(() => {
-        const blues = [], 
-              oranges = [],
-              dataPoints = [];
         fetchCsv(props.src, res => {
-            res.split('\n').forEach(row => {
-                const[x, y, color] = row.replace(/\s/g, '').split(',');
-                if (color === "Blue")
-                    blues.push([+x, +y]);
-                else if (color === "Orange")
-                    oranges.push([+x, +y]);
-                dataPoints.push([+x, +y]);
+            const colorPoints = {}
+            res.split('\n').forEach((row, i) => {
+                if (i) {
+                    const[x, y, rawColor] = row.replace(/\s/g, '').split(',');
+                    const color = rawColor.toLowerCase(); // Common color names need to be lower cased
+                    if (color in colorPoints) {
+                        // Add point to existing color
+                        colorPoints[color].push([x, y]);
+                    }
+                    else {
+                        // Add new color to set
+                        colorPoints[color] = [[x, y]];
+                    }
+                }
             });
-            setBlues(blues);
-            setOranges(oranges);
-            props.onLoad(dataPoints);
+            setPoints(colorPoints);
+            console.log(colorPoints)
         });
-    }, [props])
+    }, [props]);
 
     return (
         <Plot
-            data={[
-                {
-                x: blues.map(v => v[0]),
-                y: blues.map(v => v[1]),
-                type: 'scatter',
-                mode: 'markers',
-                marker: {color: 'blue'},
-                },
-                {
-                x: oranges.map(v => v[0]),
-                y: oranges.map(v => v[1]),
-                type: 'scatter',
-                mode: 'markers',
-                marker: {color: 'orange'},
-                },
+            data = {
+                [...Object.keys(points).map(color => ({
+                    x: points[color].map(v => v[0]),
+                    y: points[color].map(v => v[1]),
+                    type: "scatter",
+                    mode: "markers",
+                    marker: {color}
+                })),
                 x !== "" && y !== "" && {
                     x: [x, ...props.knnPoints.map(v => v[0])],
                     y: [y, ...props.knnPoints.map(v => v[1])],
                     type: 'scatter',
                     mode: 'markers',
                     marker: {color: 'green'}
-                }
-            ]}
+                }]
+            }
             layout={{width: 500, height: 500, title: 'A Fancy Plot'}}
         />
     )
