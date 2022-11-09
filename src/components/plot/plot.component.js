@@ -6,7 +6,7 @@ import { fetchCsv } from "../../services/csvReader.service";
 
 export default function ScatterPlot(props) {
 
-    const { x, y } = props.inputs;
+    const { x, y, z } = props.inputs;
 
     // Map each color to a set of points
     const [points, setPoints] = useState({});
@@ -40,14 +40,16 @@ export default function ScatterPlot(props) {
                 [...Object.keys(points).map(color => ({
                     x: points[color].map(v => v[0]),
                     y: points[color].map(v => v[1]),
-                    type: "scatter",
+                    z: points[color].map(v => v[2]),
+                    type: "scatter3d",
                     mode: "markers",
                     marker: {color}
                 })),
                 x !== "" && y !== "" && {
                     x: [x, ...props.knnPoints.map(v => v[0])],
                     y: [y, ...props.knnPoints.map(v => v[1])],
-                    type: 'scatter',
+                    z: [z, ...props.knnPoints.map(v => v[2])],
+                    type: 'scatter3d',
                     mode: 'markers',
                     marker: {color: 'green'}
                 }]

@@ -6,7 +6,7 @@ import ScatterPlot from "../plot/plot.component";
 import Table from "../table/table.component";
 
 // Data
-import data from "../../data/points.csv";
+import data from "../../data/colors.csv";
 
 export default function KNN() {
 

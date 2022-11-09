@@ -54,6 +54,15 @@ export default function Addpoint(props) {
                     onChange={handleChange}
                 />
             </label>
+            <label>z
+                <input
+                    className="input"
+                    type="number"
+                    name="z"
+                    value={inputs.z ?? ""}
+                    onChange={handleChange}
+                />
+            </label>
 
             {/* Number of neighbors */}
             <label>k
