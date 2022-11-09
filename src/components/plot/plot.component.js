@@ -14,6 +14,7 @@ export default function ScatterPlot(props) {
     useEffect(() => {
         fetchCsv(props.src, res => {
             const colorPoints = {}
+            const datapoints = []
             res.split('\n').forEach((row, i) => {
                 if (i) {
                     const array = row.replace(/\s/g, '').split(',');
@@ -28,9 +29,11 @@ export default function ScatterPlot(props) {
                         // Add new color to set
                         colorPoints[color] = [nums];
                     }
+                    datapoints.push(nums);
                 }
             });
             setPoints(colorPoints);
+            props.onLoad(datapoints);
         });
     }, [props]);
 

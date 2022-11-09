@@ -16,7 +16,7 @@ export default function KNN() {
 
     const classifyKnn = (points, k) => {
         //! TODO Implement kNN logic
-        setKnnPoints(points.slice(0, -~k));
+        setKnnPoints(points.slice(0, k));
     };
 
     const loadData = dataPoints => setDataPoints(dataPoints);
