@@ -14,8 +14,18 @@ export default function KNN() {
     const [dataPoints, setDataPoints] = useState([]);
     const [knnPoints, setKnnPoints] = useState([]);
 
-    const classifyKnn = (points, k) => {
+    // Assume that a.length == b.length
+    const distance = (a, b) => {
+        let sumSquared = 0;
+        for (let i = 0; i < a.length; i++) {
+            sumSquared += (a[i] - b[i]) ** 2;
+        }
+        return Math.sqrt(sumSquared);
+    }
+
+    const classifyKnn = (points, inputPoint, k) => {
         //! TODO Implement kNN logic
+        points.sort((a, b) => distance(a, inputPoint) - distance(b, inputPoint));
         setKnnPoints(points.slice(0, k));
     };
 
@@ -23,7 +33,7 @@ export default function KNN() {
 
     const onSubmit = inputs => {
         setInputs(inputs);
-        classifyKnn(dataPoints, inputs.k);
+        classifyKnn(dataPoints, [inputs.x, inputs.y], inputs.k);
     };
 
     return (
