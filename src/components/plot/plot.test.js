@@ -17,3 +17,21 @@ afterEach(() => {
   container.remove();
   container = null;
 });
+
+it("renders user data", async () => {
+    const fakeCSV = `x,y,Color
+    0,2,Blue
+    0.5,1,Blue
+    -2,1,Orange
+    1,1.5,Blue
+    -1,0.5,Orange
+    -2,0,Orange`;
+    jest.spyOn(global, "fetch").mockImplementation(() =>
+      Promise.resolve({
+        text: () => Promise.resolve(fakeCSV)
+      })
+    );
+  
+    // remove the mock to ensure tests are completely isolated
+    global.fetch.mockRestore();
+  });
