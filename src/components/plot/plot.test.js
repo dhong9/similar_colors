@@ -31,6 +31,19 @@ it("renders user data", async () => {
         text: () => Promise.resolve(fakeCSV)
       })
     );
+
+    // Use the asynchronous version of act to apply resolved promises
+    await act(async () => {
+        render(
+            <ScatterPlot 
+                data="../../data/points.csv"
+                inputs={{}}
+                knnPoints={[]}
+                onLoad={_ => {}}
+                onSubmit={_ => {}}
+            />
+        , container);
+    });
   
     // remove the mock to ensure tests are completely isolated
     global.fetch.mockRestore();
