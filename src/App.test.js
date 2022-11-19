@@ -22,5 +22,5 @@ it("renders title", () => {
   act(() => {
     render(<App />, container);
   });
-  expect(container.textContent).toBe("kNN Data");
+  expect(container.textContent).toBe("kNN Dataxyk");
 });
