@@ -37,7 +37,7 @@ it("renders user data", async () => {
         render(
             <ScatterPlot 
                 data="../../data/points.csv"
-                inputs={{}}
+                inputs={{x: -0.5, y: 0.2}}
                 knnPoints={[]}
                 onLoad={_ => {}}
                 onSubmit={_ => {}}
